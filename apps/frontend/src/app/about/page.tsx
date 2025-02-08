@@ -1,11 +1,11 @@
 import BaseLayout from "@/components/BaseLayout";
-import Calendar from "@/components/calendar";
 
-export default function Home() {
+export default function About() {
     return (
         <BaseLayout>
             <div>
-                <Calendar></Calendar>
+                <h1>About</h1>
+                <p>Some text here.</p>
             </div>
         </BaseLayout>
     );
