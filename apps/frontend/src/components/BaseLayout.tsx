@@ -1,5 +1,6 @@
 import Footer from "./navigation/footer";
 import Header from "./navigation/header";
+import styles from "./baseLayout.module.css";
 
 export default function BaseLayout({
     children,
@@ -7,10 +8,10 @@ export default function BaseLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <main>
+        <div id={styles.app}>
             <Header />
             {children}
             <Footer />
-        </main>
+        </div>
     );
 }

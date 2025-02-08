@@ -1,16 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-});
+import BaseLayout from "@/components/BaseLayout";
 
 export const metadata: Metadata = {
     title: "150 minutes a week",
@@ -24,19 +14,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <head>
-                <meta charSet="utf-8" />
-                <link
-                    rel="icon"
-                    type="image/svg+xml"
-                    href="/images/favicon.ico"
-                />
-                <meta name="viewport" content="width=device-width" />
-            </head>
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
-                {children}
+            <head />
+            <body>
+                <BaseLayout>
+                    <main>{children}</main>
+                </BaseLayout>
             </body>
         </html>
     );

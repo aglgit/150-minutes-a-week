@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <div className={styles.header}>
+        <header className={styles.header}>
             <Link href="/">Home</Link>
             <Link href="/about">About</Link>
-        </div>
+        </header>
     );
 }
