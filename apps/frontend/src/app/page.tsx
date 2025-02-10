@@ -1,5 +1,7 @@
 import Calendar from "@/components/calendar";
+import { fetchEvents } from "@/lib/api/fetchEvents";
 
 export default function Home() {
-    return <Calendar />;
+    const events = fetchEvents();
+    return <Calendar events={events} />;
 }

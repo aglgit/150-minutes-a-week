@@ -9,7 +9,7 @@
 .header {
     font-weight: bold;
     text-align: center;
-    background: #673434;
+    background: darkred;
     padding: 5px;
 }
 
@@ -21,6 +21,7 @@
     border: 1px solid #ccc;
     font-size: 14px;
     font-weight: bold;
+    color: black;
 }
 
 @media (max-width: 600px) {
