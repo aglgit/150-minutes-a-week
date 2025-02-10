@@ -19,6 +19,9 @@
 #app > main {
     grid-area: main;
     padding: 15px 5px 10px 5px;
+    height: 100%;
+    width: 100%;
+    background-color: #1c1c1e;
 }
 
 #app > footer {

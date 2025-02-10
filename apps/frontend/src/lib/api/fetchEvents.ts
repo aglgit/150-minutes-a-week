@@ -31,8 +31,24 @@ export const fetchEvents = () => {
             userId: "1",
             activity: ActivityType.Swimming,
             date: "2025-03-19",
+            startTime: "10:00",
+            endTime: "11:30",
+        },
+        {
+            id: "5",
+            userId: "1",
+            activity: ActivityType.Moderate,
+            date: "2025-03-19",
+            startTime: "14:00",
+            endTime: "14:30",
+        },
+        {
+            id: "6",
+            userId: "1",
+            activity: ActivityType.Vigorous,
+            date: "2025-03-19",
             startTime: "18:00",
-            endTime: "19:30",
+            endTime: "19:00",
         }
     );
 };

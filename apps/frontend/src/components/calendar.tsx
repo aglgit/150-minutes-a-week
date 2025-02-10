@@ -34,28 +34,28 @@ const Calendar: React.FC<Props> = ({ events }) => {
     };
 
     return (
-        <div>
+        <div className="grid h-4/5 w-full grid-cols-1 grid-rows-[auto_auto_1fr]">
             <CalendarNav
                 currentMonth={currentMonth}
                 setCurrentMonth={setCurrentMonth}
             />
 
-            <div className="grid grid-cols-7 gap-2 rounded-lg border border-gray-300 p-4">
+            <div className="grid grid-cols-7 place-items-center gap-6 bg-[#1c1c1e] sm:gap-12">
                 {DAYS.map((day) => (
                     <div key={day.full} className="text-center font-bold">
                         {day.short}
                     </div>
                 ))}
+            </div>
 
+            <div className="grid grid-cols-7 gap-x-1">
                 {days.map((day, index) => {
                     const dayEvents = getEventsForDay(day);
 
                     return (
                         <div
                             key={index}
-                            className={`flex h-12 flex-col items-center justify-center border border-gray-700 ${
-                                day ? "text-white" : "text-gray-600 opacity-50"
-                            }`}
+                            className="flex h-20 flex-col items-center justify-center overflow-scroll border-t border-gray-500"
                         >
                             {day || ""}
                             {dayEvents.map((event) => (
