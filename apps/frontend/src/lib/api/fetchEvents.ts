@@ -1,12 +1,20 @@
 import { ActivityType } from "../schema";
 
+const today = new Date();
+
+const addDays = (date: Date, days: number): Date => {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+};
+
 export const fetchEvents = () => {
     return Array.of(
         {
             id: "1",
             userId: "1",
             activity: ActivityType.Walking,
-            date: "2025-02-09",
+            date: today.toISOString().split("T")[0],
             startTime: "09:00",
             endTime: "10:00",
         },
@@ -14,7 +22,7 @@ export const fetchEvents = () => {
             id: "2",
             userId: "1",
             activity: ActivityType.Running,
-            date: "2025-02-19",
+            date: addDays(today, -12).toISOString().split("T")[0],
             startTime: "18:00",
             endTime: "19:30",
         },
@@ -22,7 +30,7 @@ export const fetchEvents = () => {
             id: "3",
             userId: "1",
             activity: ActivityType.Biking,
-            date: "2025-01-19",
+            date: addDays(today, -27).toISOString().split("T")[0],
             startTime: "18:00",
             endTime: "19:30",
         },
@@ -30,15 +38,15 @@ export const fetchEvents = () => {
             id: "4",
             userId: "1",
             activity: ActivityType.Swimming,
-            date: "2025-03-19",
+            date: addDays(today, +5).toISOString().split("T")[0],
             startTime: "10:00",
-            endTime: "11:30",
+            endTime: "10:45",
         },
         {
             id: "5",
             userId: "1",
             activity: ActivityType.Moderate,
-            date: "2025-03-19",
+            date: addDays(today, +16).toISOString().split("T")[0],
             startTime: "14:00",
             endTime: "14:30",
         },
@@ -46,7 +54,7 @@ export const fetchEvents = () => {
             id: "6",
             userId: "1",
             activity: ActivityType.Vigorous,
-            date: "2025-03-19",
+            date: addDays(today, +24).toISOString().split("T")[0],
             startTime: "18:00",
             endTime: "19:00",
         }

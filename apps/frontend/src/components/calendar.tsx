@@ -12,17 +12,23 @@ type Props = {
 const Calendar: React.FC<Props> = ({ events }) => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
 
+    const firstDayOfMonth = new Date(
+        currentMonth.getFullYear(),
+        currentMonth.getMonth(),
+        1
+    );
     const lastDayOfMonth = new Date(
         currentMonth.getFullYear(),
         currentMonth.getMonth() + 1,
         0
     );
 
+    const startDay = firstDayOfMonth.getDay();
     const totalDays = lastDayOfMonth.getDate();
 
-    const days = new Array(35).fill(null);
+    const days = new Array(42).fill(null);
     for (let i = 0; i < totalDays; i++) {
-        days[i] = i + 1;
+        days[startDay + i - 1] = i + 1;
     }
 
     const getEventsForDay = (day: number | null) => {
