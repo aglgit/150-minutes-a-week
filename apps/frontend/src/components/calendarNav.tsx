@@ -11,6 +11,8 @@ const CalendarNav: React.FC<CalendarHeaderProps> = ({
     currentMonth,
     setCurrentMonth,
 }) => {
+    const today = new Date();
+
     const addMonth = (val: number) => {
         setCurrentMonth(
             (prev) => new Date(prev.getFullYear(), prev.getMonth() + val, 1)
@@ -38,12 +40,21 @@ const CalendarNav: React.FC<CalendarHeaderProps> = ({
     return (
         <div>
             <div className="mb-4 flex items-center justify-between">
-                <button
-                    onClick={() => addMonth(-1)}
-                    className="red rounded bg-blue-400 p-2 text-white"
-                >
-                    ← Prev
-                </button>
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={() => addMonth(-1)}
+                        className="red rounded bg-blue-400 p-2 text-white"
+                    >
+                        ← Prev
+                    </button>
+                    <button
+                        onClick={() => setCurrentMonth(today)}
+                        className="red rounded bg-blue-800 p-2 text-white"
+                    >
+                        Today
+                    </button>
+                </div>
+
                 <h2 className="text-xl font-semibold">
                     {formatMonthYear(currentMonth)}
                 </h2>
