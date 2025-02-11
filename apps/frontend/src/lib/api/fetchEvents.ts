@@ -40,10 +40,18 @@ export const fetchEvents = () => {
             activity: ActivityType.Swimming,
             date: addDays(today, +5).toISOString().split("T")[0],
             startTime: "10:00",
-            endTime: "10:45",
+            endTime: "10:20",
         },
         {
             id: "5",
+            userId: "1",
+            activity: ActivityType.Walking,
+            date: addDays(today, +5).toISOString().split("T")[0],
+            startTime: "12:00",
+            endTime: "12:30",
+        },
+        {
+            id: "6",
             userId: "1",
             activity: ActivityType.Moderate,
             date: addDays(today, +16).toISOString().split("T")[0],
@@ -51,7 +59,7 @@ export const fetchEvents = () => {
             endTime: "14:30",
         },
         {
-            id: "6",
+            id: "7",
             userId: "1",
             activity: ActivityType.Vigorous,
             date: addDays(today, +24).toISOString().split("T")[0],

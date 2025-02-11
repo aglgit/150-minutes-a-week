@@ -69,7 +69,8 @@ const Calendar: React.FC<Props> = ({ events }) => {
                                     key={event.id}
                                     className="mt-1 rounded bg-blue-500 px-1 text-xs text-white"
                                 >
-                                    {event.activity} ({event.startTime})
+                                    {event.activity} ({event.startTime}-
+                                    {event.endTime})
                                 </div>
                             ))}
                         </div>

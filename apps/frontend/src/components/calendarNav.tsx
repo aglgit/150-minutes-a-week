@@ -49,7 +49,7 @@ const CalendarNav: React.FC<CalendarHeaderProps> = ({
                     </button>
                     <button
                         onClick={() => setCurrentMonth(today)}
-                        className="red rounded bg-blue-800 p-2 text-white"
+                        className="red rounded bg-blue-400 p-2 text-white"
                     >
                         Today
                     </button>
