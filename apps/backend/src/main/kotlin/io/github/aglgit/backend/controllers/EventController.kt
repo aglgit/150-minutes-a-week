@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController
 class EventController(private val eventService: EventService) {
 
     @GetMapping
-    fun getAllEvents(): List<EventDto> {
-        return eventService.getAllEvents().map { it.toDto() }
+    fun getEvents(): List<EventDto> {
+        return eventService.getEvents().map { it.toDto() }
     }
 
     @GetMapping("/{userId}")

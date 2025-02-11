@@ -2,70 +2,28 @@ package io.github.aglgit.backend.repositories
 
 import io.github.aglgit.backend.repositories.domain.Activity
 import io.github.aglgit.backend.repositories.domain.Event
+import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.jdbc.core.RowMapper
 import org.springframework.stereotype.Repository
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.OffsetDateTime
 
 @Repository
-class EventRepository {
-    fun getAllEvents(): List<Event> {
-        val now = ZonedDateTime.now()
-        val events = arrayListOf(
-            Event(
-                1,
-                1,
-                Activity.Walking,
-                startTime = ZonedDateTime.of(
-                    now.year,
-                    now.monthValue,
-                    now.dayOfMonth,
-                    9,
-                    0,
-                    0,
-                    0,
-                    ZoneId.systemDefault()
-                ),
-                endTime = ZonedDateTime.of(
-                    now.year,
-                    now.monthValue,
-                    now.dayOfMonth,
-                    10,
-                    0,
-                    0,
-                    0,
-                    ZoneId.systemDefault()
-                ),
-            ),
-            Event(
-                2,
-                2,
-                Activity.Walking,
-                startTime = ZonedDateTime.of(
-                    now.year,
-                    now.monthValue,
-                    now.dayOfMonth + 1,
-                    11,
-                    0,
-                    0,
-                    0,
-                    ZoneId.systemDefault()
-                ),
-                endTime = ZonedDateTime.of(
-                    now.year,
-                    now.monthValue,
-                    now.dayOfMonth + 1,
-                    11,
-                    20,
-                    0,
-                    0,
-                    ZoneId.systemDefault()
-                ),
-            )
+class EventRepository(private val jdbcTemplate: JdbcTemplate) {
+    private val rowMapper = RowMapper { rs, _ ->
+        Event(
+            id = rs.getLong("id"),
+            userId = rs.getLong("user_id"),
+            activity = Activity.valueOf(rs.getString("activity")),
+            startTime = rs.getObject("start_time", OffsetDateTime::class.java).toZonedDateTime(),
+            endTime = rs.getObject("end_time", OffsetDateTime::class.java).toZonedDateTime(),
         )
-        return events
+    }
+
+    fun getAllEvents(): List<Event> {
+        return jdbcTemplate.query("SELECT * FROM events", rowMapper)
     }
 
     fun getEventsByUser(userId: Long): List<Event> {
-        return getAllEvents().filter { it.userId == userId }
+        return jdbcTemplate.query("SELECT * FROM events WHERE user_id = ?", rowMapper, userId)
     }
 }

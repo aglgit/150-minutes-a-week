@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class EventService(private val eventRepository: EventRepository) {
-    fun getAllEvents(): List<Event> {
+    fun getEvents(): List<Event> {
         return eventRepository.getAllEvents()
     }
 
