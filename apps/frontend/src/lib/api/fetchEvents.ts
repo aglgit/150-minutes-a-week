@@ -8,7 +8,7 @@ const addDays = (date: Date, days: number): Date => {
     return result;
 };
 
-export const fetchEvents = () => {
+const mockFetchEvents = () => {
     return Array.of(
         {
             id: "1",
@@ -67,4 +67,20 @@ export const fetchEvents = () => {
             endTime: "19:00",
         }
     );
+};
+
+export const fetchEvents = async () => {
+    const username = "admin";
+    const password = "admin";
+    const url = "http://localhost:8080/events";
+
+    const headers = new Headers();
+    headers.set("Authorization", "Basic " + btoa(`${username}:${password}`));
+    const res = await fetch(url, {
+        method: "GET",
+        headers: headers,
+    });
+    const events = await res.json();
+
+    return events;
 };
