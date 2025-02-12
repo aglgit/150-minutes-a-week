@@ -61,7 +61,7 @@ const Calendar: React.FC<Props> = ({ events }) => {
                     return (
                         <div
                             key={index}
-                            className="flex h-20 flex-col items-center justify-center overflow-scroll border-t border-gray-500"
+                            className="flex h-20 flex-col items-center justify-center overflow-auto border-t border-gray-500"
                         >
                             {day || ""}
                             {dayEvents.map((event) => (
