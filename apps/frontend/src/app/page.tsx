@@ -2,7 +2,6 @@
 
 import Calendar from "@/components/calendar";
 import WeeklyProgress from "@/components/weeklyProgress";
-import { fetchEvents } from "@/lib/api/fetchEvents";
 import { Event } from "@/lib/schema";
 import { useEffect, useState } from "react";
 
@@ -10,7 +9,14 @@ export default function Home() {
     const [events, setEvents] = useState<Event[]>([]);
 
     useEffect(() => {
-        fetchEvents().then((events) => setEvents(events));
+        async function fetchData() {
+            const response = await fetch("/api/proxy");
+            const result = await response.json();
+            console.log(result);
+            setEvents(result);
+        }
+
+        fetchData();
     }, []);
 
     return (
