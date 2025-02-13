@@ -2,24 +2,40 @@ package io.github.aglgit.backend.controllers
 
 import io.github.aglgit.backend.controllers.dtos.EventDto
 import io.github.aglgit.backend.controllers.dtos.toDto
+import io.github.aglgit.backend.controllers.dtos.toEvent
 import io.github.aglgit.backend.services.EventService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/events")
+@Tag(name = "Event Controller", description = "APIs for managing events")
 class EventController(private val eventService: EventService) {
 
     @GetMapping
-    fun getEvents(): List<EventDto> {
-        return eventService.getEvents().map { it.toDto() }
+    @Operation(summary = "Get all events", description = "Retrieves all events")
+    fun getEvents(@RequestParam(required = false) userId: Long?): List<EventDto> {
+        return userId?.let { id -> eventService.getEventsByUser(id).map { it.toDto() } }
+            ?: eventService.getEvents().map { it.toDto() }
     }
 
-    @GetMapping("/{userId}")
-    fun getEventsByUser(@PathVariable("userId") userId: Long): List<EventDto> {
-        return eventService.getEventsByUser(userId).map { it.toDto() }
+    @PostMapping
+    @Operation(summary = "Create event", description = "Creates a new event")
+    fun createEvent(@RequestBody event: EventDto): EventDto? {
+        return eventService.createEvent(event.toEvent())?.toDto()
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update event by id", description = "Updates an event with the given id")
+    fun updateEvent(@PathVariable("id") userId: Long, @RequestBody event: EventDto): EventDto? {
+        return eventService.updateEvent(event.toEvent())?.toDto()
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete event by id", description = "Deletes an event with the given id")
+    fun deleteEvent(@PathVariable("id") id: Long) {
+        return eventService.deleteEvent(id)
     }
 
 }

@@ -4,7 +4,10 @@ import io.github.aglgit.backend.repositories.domain.Activity
 import io.github.aglgit.backend.repositories.domain.Event
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.RowMapper
+import org.springframework.jdbc.support.GeneratedKeyHolder
 import org.springframework.stereotype.Repository
+import java.sql.PreparedStatement
+import java.sql.Timestamp
 import java.time.OffsetDateTime
 
 @Repository
@@ -23,7 +26,50 @@ class EventRepository(private val jdbcTemplate: JdbcTemplate) {
         return jdbcTemplate.query("SELECT * FROM events", rowMapper)
     }
 
+    fun getEventById(id: Long): Event? {
+        return jdbcTemplate.queryForObject("SELECT * FROM events where id = ?", rowMapper, id)
+    }
+
     fun getEventsByUser(userId: Long): List<Event> {
         return jdbcTemplate.query("SELECT * FROM events WHERE user_id = ?", rowMapper, userId)
+    }
+
+    fun createEvent(event: Event): Long? {
+        val sql = """
+        INSERT INTO events (user_id, activity, start_time, end_time) 
+        VALUES (?, ?, ?, ?)
+    """.trimIndent()
+
+        val keyHolder = GeneratedKeyHolder()
+
+        jdbcTemplate.update({ connection ->
+            val ps: PreparedStatement = connection.prepareStatement(sql, arrayOf("id"))
+            ps.setLong(1, event.userId)
+            ps.setString(2, event.activity.toString())
+            ps.setTimestamp(3, Timestamp.from(event.startTime.toInstant()))
+            ps.setTimestamp(4, Timestamp.from(event.endTime.toInstant()))
+            ps
+        }, keyHolder)
+
+        // Return the auto-generated 'id' after the insert
+        return keyHolder.key?.toLong()
+    }
+
+    fun updateEvent(event: Event): Int {
+        val sql = "UPDATE events SET activity = ?, start_time = ?, end_time = ? " +
+                "WHERE id = ?".trimIndent()
+
+        return jdbcTemplate.update { connection ->
+            val ps: PreparedStatement = connection.prepareStatement(sql)
+            ps.setString(1, event.activity.toString())
+            ps.setTimestamp(2, Timestamp.from(event.startTime.toInstant()))
+            ps.setTimestamp(3, Timestamp.from(event.endTime.toInstant()))
+            ps.setLong(4, event.id)
+            ps
+        }
+    }
+
+    fun deleteEvent(id: Long): Int {
+        return jdbcTemplate.update("DELETE FROM events WHERE id = ?", id)
     }
 }

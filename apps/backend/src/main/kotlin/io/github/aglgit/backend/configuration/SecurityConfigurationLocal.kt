@@ -13,12 +13,13 @@ import org.springframework.web.cors.CorsUtils
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-class SecurityConfig {
+class SecurityConfigurationLocal {
 
     @Bean
     @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
+            .csrf { csrf -> csrf.disable() }
             .authorizeHttpRequests { auth ->
                 auth
                     .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()

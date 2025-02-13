@@ -10,7 +10,25 @@ class EventService(private val eventRepository: EventRepository) {
         return eventRepository.getAllEvents()
     }
 
+    fun getEvent(id: Long): Event? {
+        return eventRepository.getEventById(id)
+    }
+
     fun getEventsByUser(userId: Long): List<Event> {
         return eventRepository.getEventsByUser(userId)
+    }
+
+    fun createEvent(event: Event): Event? {
+        val id = eventRepository.createEvent(event)
+        return id?.let { getEvent(it) }
+    }
+
+    fun updateEvent(event: Event): Event? {
+        eventRepository.updateEvent(event)
+        return getEvent(event.id)
+    }
+
+    fun deleteEvent(id: Long) {
+        eventRepository.deleteEvent(id)
     }
 }
