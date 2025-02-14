@@ -1,8 +1,6 @@
 package io.github.aglgit.backend.controllers
 
-import io.github.aglgit.backend.controllers.dtos.EventDto
-import io.github.aglgit.backend.controllers.dtos.toDto
-import io.github.aglgit.backend.controllers.dtos.toEvent
+import io.github.aglgit.backend.controllers.dtos.*
 import io.github.aglgit.backend.services.EventService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -22,8 +20,8 @@ class EventController(private val eventService: EventService) {
 
     @PostMapping
     @Operation(summary = "Create event", description = "Creates a new event")
-    fun createEvent(@RequestBody event: EventDto): EventDto? {
-        return eventService.createEvent(event.toEvent())?.toDto()
+    fun createEvent(@RequestBody event: CreateEventDto): EventDto? {
+        return eventService.createEvent(event.toCreateEvent())?.toDto()
     }
 
     @PutMapping("/{id}")

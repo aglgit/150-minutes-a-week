@@ -1,6 +1,7 @@
 package io.github.aglgit.backend.services
 
 import io.github.aglgit.backend.repositories.EventRepository
+import io.github.aglgit.backend.repositories.domain.CreateEvent
 import io.github.aglgit.backend.repositories.domain.Event
 import org.springframework.stereotype.Service
 
@@ -18,7 +19,7 @@ class EventService(private val eventRepository: EventRepository) {
         return eventRepository.getEventsByUser(userId)
     }
 
-    fun createEvent(event: Event): Event? {
+    fun createEvent(event: CreateEvent): Event? {
         val id = eventRepository.createEvent(event)
         return id?.let { getEvent(it) }
     }

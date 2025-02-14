@@ -1,6 +1,7 @@
 package io.github.aglgit.backend.repositories
 
 import io.github.aglgit.backend.repositories.domain.Activity
+import io.github.aglgit.backend.repositories.domain.CreateEvent
 import io.github.aglgit.backend.repositories.domain.Event
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.RowMapper
@@ -34,7 +35,7 @@ class EventRepository(private val jdbcTemplate: JdbcTemplate) {
         return jdbcTemplate.query("SELECT * FROM events WHERE user_id = ?", rowMapper, userId)
     }
 
-    fun createEvent(event: Event): Long? {
+    fun createEvent(event: CreateEvent): Long? {
         val sql = """
         INSERT INTO events (user_id, activity, start_time, end_time) 
         VALUES (?, ?, ?, ?)
