@@ -20,6 +20,9 @@ class EventService(private val eventRepository: EventRepository) {
     }
 
     fun createEvent(event: CreateEvent): Event? {
+        if (eventRepository.isEventOverlapping(event)) {
+            throw IllegalArgumentException("Event(s) already exists at time ${event.startTime} - ${event.endTime}")
+        }
         val id = eventRepository.createEvent(event)
         return id?.let { getEvent(it) }
     }

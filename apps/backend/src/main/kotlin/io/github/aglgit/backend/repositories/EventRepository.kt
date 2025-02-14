@@ -73,4 +73,19 @@ class EventRepository(private val jdbcTemplate: JdbcTemplate) {
     fun deleteEvent(id: Long): Int {
         return jdbcTemplate.update("DELETE FROM events WHERE id = ?", id)
     }
+
+    fun isEventOverlapping(event: CreateEvent): Boolean {
+        val sql = """SELECT COUNT(*) FROM events
+                WHERE user_id = ?
+                AND start_time <= ?
+                AND end_time >= ?
+                """.trimIndent()
+        return jdbcTemplate.queryForObject(
+            sql,
+            Int::class.java,
+            event.userId,
+            Timestamp.from(event.endTime.toInstant()),
+            Timestamp.from(event.startTime.toInstant())
+        )!! > 0
+    }
 }
