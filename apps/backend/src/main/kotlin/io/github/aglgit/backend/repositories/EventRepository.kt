@@ -1,8 +1,8 @@
 package io.github.aglgit.backend.repositories
 
-import io.github.aglgit.backend.repositories.domain.Activity
-import io.github.aglgit.backend.repositories.domain.CreateEvent
-import io.github.aglgit.backend.repositories.domain.Event
+import io.github.aglgit.backend.services.domain.Activity
+import io.github.aglgit.backend.services.domain.CreateEvent
+import io.github.aglgit.backend.services.domain.Event
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.support.GeneratedKeyHolder

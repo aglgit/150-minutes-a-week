@@ -1,7 +1,7 @@
 package io.github.aglgit.backend.controllers.dtos
 
-import io.github.aglgit.backend.repositories.domain.Activity
-import io.github.aglgit.backend.repositories.domain.Event
+import io.github.aglgit.backend.services.domain.Activity
+import io.github.aglgit.backend.services.domain.Event
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId

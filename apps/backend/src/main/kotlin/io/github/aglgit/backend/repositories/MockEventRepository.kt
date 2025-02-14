@@ -1,7 +1,7 @@
 package io.github.aglgit.backend.repositories
 
-import io.github.aglgit.backend.repositories.domain.Activity
-import io.github.aglgit.backend.repositories.domain.Event
+import io.github.aglgit.backend.services.domain.Activity
+import io.github.aglgit.backend.services.domain.Event
 import org.springframework.stereotype.Repository
 import java.time.ZoneId
 import java.time.ZonedDateTime

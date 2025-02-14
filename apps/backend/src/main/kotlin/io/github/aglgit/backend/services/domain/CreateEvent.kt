@@ -1,9 +1,8 @@
-package io.github.aglgit.backend.repositories.domain
+package io.github.aglgit.backend.services.domain
 
 import java.time.ZonedDateTime
 
-data class Event(
-    val id: Long,
+data class CreateEvent(
     val userId: Long,
     val activity: Activity,
     val startTime: ZonedDateTime,

@@ -1,8 +1,8 @@
 package io.github.aglgit.backend.services
 
 import io.github.aglgit.backend.repositories.EventRepository
-import io.github.aglgit.backend.repositories.domain.CreateEvent
-import io.github.aglgit.backend.repositories.domain.Event
+import io.github.aglgit.backend.services.domain.CreateEvent
+import io.github.aglgit.backend.services.domain.Event
 import org.springframework.stereotype.Service
 
 @Service

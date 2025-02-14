@@ -1,4 +1,4 @@
-package io.github.aglgit.backend.repositories.domain
+package io.github.aglgit.backend.services.domain
 
 enum class Activity(s: String) {
     Walking("Walking"),
