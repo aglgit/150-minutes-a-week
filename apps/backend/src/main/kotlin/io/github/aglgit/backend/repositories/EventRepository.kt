@@ -28,18 +28,29 @@ class EventRepository(private val jdbcTemplate: JdbcTemplate) {
     }
 
     fun getEventById(id: Long): Event? {
-        return jdbcTemplate.queryForObject("SELECT * FROM events where id = ?", rowMapper, id)
+        return jdbcTemplate.queryForObject(
+            """
+            SELECT * FROM events 
+            WHERE id = ?
+            """.trimIndent(), rowMapper, id
+        )
     }
 
     fun getEventsByUser(userId: Long): List<Event> {
-        return jdbcTemplate.query("SELECT * FROM events WHERE user_id = ?", rowMapper, userId)
+        return jdbcTemplate.query(
+            """
+            SELECT * FROM events 
+            WHERE user_id = ?
+            """.trimIndent(), rowMapper, userId
+        )
     }
 
     fun createEvent(event: CreateEvent): Long? {
-        val sql = """
-        INSERT INTO events (user_id, activity, start_time, end_time) 
-        VALUES (?, ?, ?, ?)
-    """.trimIndent()
+        val sql =
+            """
+            INSERT INTO events (user_id, activity, start_time, end_time) 
+            VALUES (?, ?, ?, ?)
+            """.trimIndent()
 
         val keyHolder = GeneratedKeyHolder()
 
@@ -57,8 +68,11 @@ class EventRepository(private val jdbcTemplate: JdbcTemplate) {
     }
 
     fun updateEvent(event: Event): Int {
-        val sql = "UPDATE events SET activity = ?, start_time = ?, end_time = ? " +
-                "WHERE id = ?".trimIndent()
+        val sql =
+            """
+            UPDATE events SET activity = ?, start_time = ?, end_time = ?
+            WHERE id = ?
+            """.trimIndent()
 
         return jdbcTemplate.update { connection ->
             val ps: PreparedStatement = connection.prepareStatement(sql)
@@ -71,15 +85,22 @@ class EventRepository(private val jdbcTemplate: JdbcTemplate) {
     }
 
     fun deleteEvent(id: Long): Int {
-        return jdbcTemplate.update("DELETE FROM events WHERE id = ?", id)
+        return jdbcTemplate.update(
+            """
+            DELETE FROM events 
+            WHERE id = ?
+            """.trimIndent(), id
+        )
     }
 
     fun isEventOverlapping(event: CreateEvent): Boolean {
-        val sql = """SELECT COUNT(*) FROM events
-                WHERE user_id = ?
-                AND start_time <= ?
-                AND end_time >= ?
-                """.trimIndent()
+        val sql =
+            """
+            SELECT COUNT(*) FROM events
+            WHERE user_id = ?
+            AND start_time <= ?
+            AND end_time >= ?
+            """.trimIndent()
         return jdbcTemplate.queryForObject(
             sql,
             Int::class.java,
