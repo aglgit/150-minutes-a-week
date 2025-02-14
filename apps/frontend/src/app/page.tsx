@@ -11,8 +11,11 @@ export default function Home() {
     useEffect(() => {
         async function fetchData() {
             const response = await fetch("/api/proxy");
+            if (!response.ok) {
+                setEvents([]);
+                return;
+            }
             const result = await response.json();
-            console.log(result);
             setEvents(result);
         }
 
