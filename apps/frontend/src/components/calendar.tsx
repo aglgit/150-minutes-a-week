@@ -40,7 +40,7 @@ const Calendar: React.FC<Props> = ({ events }) => {
     };
 
     return (
-        <div className="grid h-4/5 w-full grid-cols-1 grid-rows-[auto_auto_1fr]">
+        <div className="grid h-4/6 w-full grid-cols-1 grid-rows-[auto_auto_1fr]">
             <CalendarNav
                 currentMonth={currentMonth}
                 setCurrentMonth={setCurrentMonth}
