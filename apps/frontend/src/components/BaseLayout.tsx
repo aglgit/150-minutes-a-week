@@ -1,6 +1,5 @@
 import Footer from "./navigation/footer";
 import Header from "./navigation/header";
-import styles from "./baseLayout.module.css";
 
 export default function BaseLayout({
     children,
@@ -8,7 +7,7 @@ export default function BaseLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div id={styles.app}>
+        <div className="grid- grid h-full grid-cols-1 grid-rows-[auto_1fr_auto] items-center justify-center gap-2">
             <Header />
             {children}
             <Footer />
