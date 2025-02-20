@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { DAYS } from "@/lib/days"; // Import days of the week
-import { Event } from "@/lib/schema"; // Import event type
+import { DAYS } from "@/lib/days";
+import { Event } from "@/lib/schema";
 import CalendarNav from "./calendarNav";
 
 type Props = {

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Footer() {
+const Footer: React.FC = () => {
     return (
         <footer className="mx-auto flex items-center justify-center gap-1 p-2">
             <Link href="https://github.com/aglgit/150-minutes-a-week">
@@ -8,4 +8,6 @@ export default function Footer() {
             </Link>
         </footer>
     );
-}
+};
+
+export default Footer;

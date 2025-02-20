@@ -5,7 +5,7 @@ import WeeklyProgress from "@/components/weeklyProgress";
 import { Event } from "@/lib/schema";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+const Home: React.FC = () => {
     const [events, setEvents] = useState<Event[]>([]);
 
     useEffect(() => {
@@ -28,4 +28,6 @@ export default function Home() {
             <WeeklyProgress events={events} />
         </>
     );
-}
+};
+
+export default Home;
