@@ -63,7 +63,6 @@ class EventRepository(private val jdbcTemplate: JdbcTemplate) {
             ps
         }, keyHolder)
 
-        // Return the auto-generated 'id' after the insert
         return keyHolder.key?.toLong()
     }
 
