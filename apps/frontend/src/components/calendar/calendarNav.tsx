@@ -3,18 +3,18 @@
 import React from "react";
 
 interface CalendarHeaderProps {
-    currentMonth: Date;
-    setCurrentMonth: React.Dispatch<React.SetStateAction<Date>>;
+    currentDay: Date;
+    setCurrentDay: React.Dispatch<React.SetStateAction<Date>>;
 }
 
 const CalendarNav: React.FC<CalendarHeaderProps> = ({
-    currentMonth,
-    setCurrentMonth,
+    currentDay: currentDay,
+    setCurrentDay: setCurrentDay,
 }) => {
     const today = new Date();
 
     const addMonth = (val: number) => {
-        setCurrentMonth(
+        setCurrentDay(
             (prev) => new Date(prev.getFullYear(), prev.getMonth() + val, 1)
         );
     };
@@ -48,7 +48,7 @@ const CalendarNav: React.FC<CalendarHeaderProps> = ({
                         ← Prev
                     </button>
                     <button
-                        onClick={() => setCurrentMonth(today)}
+                        onClick={() => setCurrentDay(today)}
                         className="red rounded bg-blue-400 p-2 text-white"
                     >
                         Today
@@ -56,7 +56,7 @@ const CalendarNav: React.FC<CalendarHeaderProps> = ({
                 </div>
 
                 <h2 className="text-xl font-semibold">
-                    {formatMonthYear(currentMonth)}
+                    {formatMonthYear(currentDay)}
                 </h2>
                 <button
                     onClick={() => addMonth(+1)}

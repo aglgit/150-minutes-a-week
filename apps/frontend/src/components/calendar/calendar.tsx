@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Event } from "@/lib/schema";
-import CalendarNav from "../calendarNav";
+import CalendarNav from "./calendarNav";
 import CalendarDayNames from "./calendarDayNames";
 import CalendarDaysMonth from "./calendarDaysMonth";
 
@@ -11,16 +11,16 @@ type Props = {
 };
 
 const Calendar: React.FC<Props> = ({ events }) => {
-    const [currentMonth, setCurrentMonth] = useState(new Date());
+    const [currentDay, setCurrentDay] = useState(new Date());
 
     return (
         <div className="grid h-4/6 w-full grid-cols-1 grid-rows-[auto_auto_1fr]">
             <CalendarNav
-                currentMonth={currentMonth}
-                setCurrentMonth={setCurrentMonth}
+                currentDay={currentDay}
+                setCurrentDay={setCurrentDay}
             />
             <CalendarDayNames />
-            <CalendarDaysMonth events={events} currentMonth={currentMonth} />
+            <CalendarDaysMonth events={events} currentDay={currentDay} />
         </div>
     );
 };
