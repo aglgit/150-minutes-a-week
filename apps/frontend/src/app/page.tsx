@@ -1,6 +1,6 @@
 "use client";
 
-import Calendar from "@/components/calendar";
+import Calendar from "@/components/calendar/calendar";
 import WeeklyProgress from "@/components/weeklyProgress";
 import { Event } from "@/lib/schema";
 import { useEffect, useState } from "react";
