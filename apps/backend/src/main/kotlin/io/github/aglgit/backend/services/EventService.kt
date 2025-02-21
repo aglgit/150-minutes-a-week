@@ -4,6 +4,7 @@ import io.github.aglgit.backend.repositories.EventRepository
 import io.github.aglgit.backend.services.domain.CreateEvent
 import io.github.aglgit.backend.services.domain.Event
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class EventService(private val eventRepository: EventRepository) {
@@ -19,6 +20,7 @@ class EventService(private val eventRepository: EventRepository) {
         return eventRepository.getEventsByUser(userId)
     }
 
+    @Transactional
     fun createEvent(event: CreateEvent): Event? {
         if (eventRepository.isEventOverlapping(event)) {
             throw IllegalArgumentException("Event(s) already exists at time ${event.startTime} - ${event.endTime}")
