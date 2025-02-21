@@ -2,7 +2,7 @@
 
 import Calendar from "@/components/calendar/calendar";
 import WeeklyProgress from "@/components/weeklyProgress";
-import { Event } from "@/lib/schema";
+import { Event } from "@/lib/schema/schema";
 import { useEffect, useState } from "react";
 
 const Home: React.FC = () => {
@@ -15,7 +15,7 @@ const Home: React.FC = () => {
                 setEvents([]);
                 return;
             }
-            const result = await response.json();
+            const result: Event[] = await response.json();
             setEvents(result);
         }
 

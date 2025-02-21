@@ -1,21 +1,20 @@
 "use client";
 
 import React from "react";
-import { Event } from "@/lib/schema";
+import { Event } from "@/lib/schema/schema";
+import { TODAY } from "@/lib/dates/dateUtils";
 
 type Props = {
     events: Event[];
     currentDay: Date;
 };
 
-const CalendarDaysMonth: React.FC<Props> = ({
+const CalendarMonthDays: React.FC<Props> = ({
     events,
     currentDay: currentDay,
 }) => {
     const [selectedDay, setSelectedDay] = React.useState<Date | null>(null);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
-
-    const today = new Date();
 
     const firstDayOfMonth = new Date(
         currentDay.getFullYear(),
@@ -42,11 +41,20 @@ const CalendarDaysMonth: React.FC<Props> = ({
 
     const getEventsForDay = (day: Date | null) => {
         if (!day) return [];
-        console.log(day, events);
+        const nextDay = new Date(day);
+        nextDay.setDate(nextDay.getDate() + 1);
+        nextDay.setHours(0, 0, 0, 0);
         return events.filter((event) => {
-            return new Date(event.date)
-                .toLocaleDateString()
-                .includes(day.toLocaleDateString());
+            const eventDate = new Date(event.startTime);
+            return eventDate >= day && eventDate < nextDay;
+        });
+    };
+
+    const formatTime = (date: Date): string => {
+        return date.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
         });
     };
 
@@ -55,7 +63,7 @@ const CalendarDaysMonth: React.FC<Props> = ({
             {days.map((day, index) => {
                 const dayEvents = getEventsForDay(day);
                 const bgColor =
-                    today.toLocaleDateString() === day?.toLocaleDateString()
+                    TODAY.toLocaleDateString() === day?.toLocaleDateString()
                         ? "bg-blue-600"
                         : "";
 
@@ -78,8 +86,9 @@ const CalendarDaysMonth: React.FC<Props> = ({
                                     setIsModalOpen(true);
                                 }}
                             >
-                                {event.activity} ({event.startTime}-
-                                {event.endTime})
+                                {event.activity} (
+                                {formatTime(new Date(event.startTime))}-
+                                {formatTime(new Date(event.endTime))})
                             </div>
                         ))}
                     </div>
@@ -111,4 +120,4 @@ const CalendarDaysMonth: React.FC<Props> = ({
     );
 };
 
-export default CalendarDaysMonth;
+export default CalendarMonthDays;

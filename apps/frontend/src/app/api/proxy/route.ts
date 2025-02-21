@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mockEvents } from "../../../lib/mockEvents";
+import { mockEvents } from "../../../lib/mocks/mockEvents";
 
 export async function GET() {
     const backendUrl = process.env.BACKEND_URL;

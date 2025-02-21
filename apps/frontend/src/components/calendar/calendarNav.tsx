@@ -1,5 +1,6 @@
 "use client";
 
+import { MONTH_NAMES, TODAY } from "@/lib/dates/dateUtils";
 import React from "react";
 
 interface CalendarHeaderProps {
@@ -11,29 +12,14 @@ const CalendarNav: React.FC<CalendarHeaderProps> = ({
     currentDay: currentDay,
     setCurrentDay: setCurrentDay,
 }) => {
-    const today = new Date();
-
     const addMonth = (val: number) => {
         setCurrentDay(
             (prev) => new Date(prev.getFullYear(), prev.getMonth() + val, 1)
         );
     };
 
-    const formatMonthYear = (date: Date) => {
-        const monthNames = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        ];
+    const formatYearMonth = (date: Date) => {
+        const monthNames = MONTH_NAMES.map((m) => m.full);
         return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
     };
 
@@ -48,7 +34,7 @@ const CalendarNav: React.FC<CalendarHeaderProps> = ({
                         ← Prev
                     </button>
                     <button
-                        onClick={() => setCurrentDay(today)}
+                        onClick={() => setCurrentDay(TODAY)}
                         className="red rounded bg-blue-400 p-2 text-white"
                     >
                         Today
@@ -56,7 +42,7 @@ const CalendarNav: React.FC<CalendarHeaderProps> = ({
                 </div>
 
                 <h2 className="text-xl font-semibold">
-                    {formatMonthYear(currentDay)}
+                    {formatYearMonth(currentDay)}
                 </h2>
                 <button
                     onClick={() => addMonth(+1)}

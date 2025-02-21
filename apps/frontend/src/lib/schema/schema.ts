@@ -14,9 +14,8 @@ export type Event = {
     id: string;
     userId: string;
     activity: ActivityType;
-    date: string;
-    startTime: string;
-    endTime: string;
+    startTime: Date;
+    endTime: Date;
 };
 
 export type User = {
