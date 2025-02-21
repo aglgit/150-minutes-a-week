@@ -1,5 +1,3 @@
-"use client";
-
 import { MONTH_NAMES, TODAY } from "@/lib/dates/dateUtils";
 import React from "react";
 

@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import { Event } from "@/lib/schema/schema";
 import CalendarNav from "./calendarNav";

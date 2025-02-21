@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { WEEK_DAY_NAMES } from "@/lib/dates/dateUtils";
 

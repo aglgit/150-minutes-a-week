@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Event } from "@/lib/schema/schema";
 import { TODAY } from "@/lib/dates/dateUtils";
