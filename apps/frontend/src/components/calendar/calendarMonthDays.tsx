@@ -7,11 +7,13 @@ import CalendarModal from "./calendarModal";
 type Props = {
     events: Event[];
     currentDay: Date;
+    refreshEvents: () => void;
 };
 
 const CalendarMonthDays: React.FC<Props> = ({
     events,
-    currentDay: currentDay,
+    currentDay,
+    refreshEvents,
 }) => {
     const [selectedDay, setSelectedDay] = React.useState<Date | null>(null);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -69,6 +71,7 @@ const CalendarMonthDays: React.FC<Props> = ({
                 <CalendarModal
                     selectedDay={selectedDay}
                     setIsModalOpen={setIsModalOpen}
+                    refreshEvents={refreshEvents}
                 />
             )}
         </div>

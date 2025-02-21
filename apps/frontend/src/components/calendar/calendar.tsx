@@ -7,9 +7,10 @@ import { TODAY } from "@/lib/dates/dateUtils";
 
 type Props = {
     events: Event[];
+    refreshEvents: () => void;
 };
 
-const Calendar: React.FC<Props> = ({ events }) => {
+const Calendar: React.FC<Props> = ({ events, refreshEvents }) => {
     const [currentDay, setCurrentDay] = useState(TODAY);
 
     return (
@@ -19,7 +20,11 @@ const Calendar: React.FC<Props> = ({ events }) => {
                 setCurrentDay={setCurrentDay}
             />
             <CalendarDayNames />
-            <CalendarMonthDays events={events} currentDay={currentDay} />
+            <CalendarMonthDays
+                events={events}
+                currentDay={currentDay}
+                refreshEvents={refreshEvents}
+            />
         </div>
     );
 };

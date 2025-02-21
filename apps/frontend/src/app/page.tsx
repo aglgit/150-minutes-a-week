@@ -7,24 +7,29 @@ import { useEffect, useState } from "react";
 
 const Home: React.FC = () => {
     const [events, setEvents] = useState<Event[]>([]);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
-        async function fetchData() {
-            const response = await fetch("/api/proxy");
-            if (!response.ok) {
-                setEvents([]);
-                return;
-            }
-            const result: Event[] = await response.json();
-            setEvents(result);
-        }
+        fetchEvents();
+    }, [refresh]);
 
-        fetchData();
-    }, []);
+    const fetchEvents = async () => {
+        const response = await fetch("/api/proxy");
+        if (!response.ok) {
+            setEvents([]);
+            return;
+        }
+        const result: Event[] = await response.json();
+        setEvents(result);
+    };
+
+    const refreshEvents = () => {
+        setRefresh((prev) => !prev);
+    };
 
     return (
         <>
-            <Calendar events={events} />
+            <Calendar events={events} refreshEvents={refreshEvents} />
             <WeeklyProgress events={events} />
         </>
     );

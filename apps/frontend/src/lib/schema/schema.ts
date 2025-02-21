@@ -18,6 +18,13 @@ export type Event = {
     endTime: Date;
 };
 
+export type CreateEvent = {
+    userId: string;
+    activity: ActivityType;
+    startTime: Date;
+    endTime: Date;
+};
+
 export type User = {
     id: string;
 };
