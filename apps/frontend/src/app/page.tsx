@@ -18,7 +18,17 @@ const Home: React.FC = () => {
         if (!response.ok) {
             return;
         }
-        const result: Event[] = await response.json();
+        const result: Event[] = await response
+            .json()
+            .then((events: Event[]) => {
+                return events.map((event): Event => {
+                    return {
+                        ...event,
+                        startTime: new Date(event.startTime),
+                        endTime: new Date(event.endTime),
+                    };
+                });
+            });
         setEvents(result);
     };
 

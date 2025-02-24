@@ -31,8 +31,8 @@ const CalendarMonthDayEvent: React.FC<CalendarMonthDayEventProps> = ({
                 setModalType("edit");
             }}
         >
-            {event.activity} ({formatTime(new Date(event.startTime))}-
-            {formatTime(new Date(event.endTime))})
+            {event.activity} ({formatTime(event.startTime)}-
+            {formatTime(event.endTime)})
         </div>
     );
 };

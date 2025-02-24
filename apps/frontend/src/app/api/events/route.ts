@@ -87,8 +87,8 @@ export async function POST(request: Request): Promise<NextResponse> {
         const data = await response.json().then((event: Event) => {
             return {
                 ...event,
-                startTime: new Date(event.startTime),
-                endTime: new Date(event.endTime),
+                startTime: event.startTime,
+                endTime: event.endTime,
             };
         });
         return NextResponse.json(data, { status: 200 });

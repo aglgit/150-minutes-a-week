@@ -59,7 +59,6 @@ const CalendarMonthDays: React.FC<Props> = ({
                         onClick={() => {
                             setSelectedDay(day);
                             setModalType("create");
-                            console.log("Create event", day);
                         }}
                     >
                         {day?.getDate() || ""}

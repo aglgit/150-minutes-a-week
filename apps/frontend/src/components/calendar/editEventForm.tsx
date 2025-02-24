@@ -55,7 +55,6 @@ const EditEventForm: React.FC<CalendarModalProps> = ({
             ),
             endTime: convertTimeToDateTime(selectedEvent!.endTime, endTime),
         };
-        console.log("Updated: ", updatedEvent);
         updateEvent(updatedEvent)
             .then(() => setModalType(null))
             .then(refreshEvents)
@@ -64,7 +63,6 @@ const EditEventForm: React.FC<CalendarModalProps> = ({
 
     const handleDelete = () => {
         const deletedEvent = selectedEvent!;
-        console.log("Deleted: ", deletedEvent);
         deleteEvent(deletedEvent)
             .then(() => setModalType(null))
             .then(refreshEvents)
