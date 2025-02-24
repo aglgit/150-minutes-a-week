@@ -1,3 +1,17 @@
+# TODO
+
+## Functional
+
+- Color day text (e.g. "24") with red circle instead of blue background
+- Add login with Google
+- Integrate with backend in production
+- Week view
+- About page
+- Validations?
+- PWA functionality
+
+# 150-minutes-a-week
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
