@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Event } from "@/lib/schema/schema";
 import { TODAY } from "@/lib/dates/dateUtils";
 import CalendarMonthDayEvent from "./calendarMonthDayEvent";
@@ -15,8 +15,9 @@ const CalendarMonthDays: React.FC<Props> = ({
     currentDay,
     refreshEvents,
 }) => {
+    const [modalType, setModalType] = useState<"create" | "edit" | null>(null);
     const [selectedDay, setSelectedDay] = React.useState<Date | null>(null);
-    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
     const firstDayOfMonth = new Date(
         currentDay.getFullYear(),
@@ -57,20 +58,28 @@ const CalendarMonthDays: React.FC<Props> = ({
                         className={`${bgColor} flex h-20 flex-col items-center justify-center overflow-auto border-t`}
                         onClick={() => {
                             setSelectedDay(day);
-                            setIsModalOpen(true);
+                            setModalType("create");
+                            console.log("Create event", day);
                         }}
                     >
                         {day?.getDate() || ""}
                         {dayEvents.map((event, index) => (
-                            <CalendarMonthDayEvent key={index} event={event} />
+                            <CalendarMonthDayEvent
+                                key={index}
+                                event={event}
+                                setModalType={setModalType}
+                                setSelectedEvent={setSelectedEvent}
+                            />
                         ))}
                     </div>
                 );
             })}
-            {isModalOpen && (
+            {modalType && (
                 <CalendarModal
                     selectedDay={selectedDay}
-                    setIsModalOpen={setIsModalOpen}
+                    selectedEvent={selectedEvent}
+                    modalType={modalType}
+                    setModalType={setModalType}
                     refreshEvents={refreshEvents}
                 />
             )}

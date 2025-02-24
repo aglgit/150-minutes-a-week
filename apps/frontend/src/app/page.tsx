@@ -16,7 +16,6 @@ const Home: React.FC = () => {
     const fetchEvents = async () => {
         const response = await fetch("/api/proxy");
         if (!response.ok) {
-            setEvents([]);
             return;
         }
         const result: Event[] = await response.json();
