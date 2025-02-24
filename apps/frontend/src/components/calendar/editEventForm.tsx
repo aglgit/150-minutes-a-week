@@ -1,3 +1,4 @@
+import { formatDateToHourMinute } from "@/lib/dates/dateUtils";
 import { ActivityType, Event } from "@/lib/schema/schema";
 import React, { useState } from "react";
 
@@ -14,9 +15,13 @@ const EditEventForm: React.FC<CalendarModalProps> = ({
     setModalType,
     refreshEvents,
 }) => {
-    const [activity, setActivity] = useState(ActivityType.Walking);
-    const [startTime, setStartTime] = useState("09:00");
-    const [endTime, setEndTime] = useState("09:30");
+    const [activity, setActivity] = useState(selectedEvent?.activity);
+    const [startTime, setStartTime] = useState(
+        formatDateToHourMinute(selectedEvent!.startTime)
+    );
+    const [endTime, setEndTime] = useState(
+        formatDateToHourMinute(selectedEvent!.endTime)
+    );
 
     async function updateEvent(event: Event) {
         const response = await fetch(`/api/events/${event.id}`, {
@@ -48,7 +53,7 @@ const EditEventForm: React.FC<CalendarModalProps> = ({
         const updatedEvent: Event = {
             id: selectedEvent!.id,
             userId: selectedEvent!.userId,
-            activity,
+            activity: activity!,
             startTime: convertTimeToDateTime(
                 selectedEvent!.startTime,
                 startTime
@@ -72,8 +77,7 @@ const EditEventForm: React.FC<CalendarModalProps> = ({
     return (
         <div className="relative rounded-lg bg-neutral-800 p-6 shadow-lg">
             <h2 className="text-lg font-bold">
-                Edit event for: {selectedEvent?.activity}, id:{" "}
-                {selectedEvent?.id}
+                Edit event for: {selectedEvent?.startTime.toDateString()}{" "}
             </h2>
             <div>
                 <label className="block">Activity:</label>
@@ -92,6 +96,7 @@ const EditEventForm: React.FC<CalendarModalProps> = ({
                     <option value="Running">Running</option>
                     <option value="Biking">Cycling</option>
                     <option value="Swimming">Swimming</option>
+                    <option value="Moderate">Moderate</option>
                 </select>
                 <div className="mt-2">
                     <label className="block">Start Time:</label>

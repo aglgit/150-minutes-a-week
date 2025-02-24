@@ -128,3 +128,11 @@ export const getWeekNumber = (date: Date): number => {
     );
     return Math.ceil((diffInDays + 1) / 7);
 };
+
+export const formatDateToHourMinute = (date: Date): string => {
+    return date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+    });
+};

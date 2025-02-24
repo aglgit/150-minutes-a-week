@@ -1,5 +1,6 @@
 import React from "react";
 import { Event } from "@/lib/schema/schema";
+import { formatDateToHourMinute } from "@/lib/dates/dateUtils";
 
 type CalendarMonthDayEventProps = {
     event: Event;
@@ -14,14 +15,6 @@ const CalendarMonthDayEvent: React.FC<CalendarMonthDayEventProps> = ({
     setModalType,
     setSelectedEvent,
 }) => {
-    const formatTime = (date: Date): string => {
-        return date.toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-        });
-    };
-
     return (
         <div
             className="mt-1 rounded border-blue-600 bg-blue-600 px-1 text-xs text-white"
@@ -31,8 +24,8 @@ const CalendarMonthDayEvent: React.FC<CalendarMonthDayEventProps> = ({
                 setModalType("edit");
             }}
         >
-            {event.activity} ({formatTime(event.startTime)}-
-            {formatTime(event.endTime)})
+            {event.activity} ({formatDateToHourMinute(event.startTime)}-
+            {formatDateToHourMinute(event.endTime)})
         </div>
     );
 };

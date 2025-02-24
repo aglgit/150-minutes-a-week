@@ -5,6 +5,7 @@ import { Event } from "@/lib/schema/schema";
 const backendUrl = process.env.BACKEND_URL;
 const username = process.env.BACKEND_USERNAME;
 const password = process.env.BACKEND_PASSWORD;
+const authHeader = `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`;
 
 export async function GET(): Promise<NextResponse> {
     if (process.env.NODE_ENV === "production") {
@@ -19,7 +20,6 @@ export async function GET(): Promise<NextResponse> {
     }
 
     try {
-        const authHeader = `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`;
         const response = await fetch(`${backendUrl}/events`, {
             method: "GET",
             headers: {
@@ -70,7 +70,6 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     try {
-        const authHeader = `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`;
         const response = await fetch(`${backendUrl}/events`, {
             method: "POST",
             headers: {

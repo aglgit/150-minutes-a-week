@@ -4,6 +4,7 @@ import { Event } from "@/lib/schema/schema";
 const backendUrl = process.env.BACKEND_URL;
 const username = process.env.BACKEND_USERNAME;
 const password = process.env.BACKEND_PASSWORD;
+const authHeader = `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`;
 
 export async function PUT(
     request: Request,
@@ -25,7 +26,6 @@ export async function PUT(
     }
 
     try {
-        const authHeader = `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`;
         const response = await fetch(`${backendUrl}/events/${id}`, {
             method: "PUT",
             headers: {
@@ -77,7 +77,6 @@ export async function DELETE(
     }
 
     try {
-        const authHeader = `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`;
         const response = await fetch(`${backendUrl}/events/${id}`, {
             method: "DELETE",
             headers: {
