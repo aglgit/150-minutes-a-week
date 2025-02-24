@@ -14,7 +14,7 @@ const Home: React.FC = () => {
     }, [refresh]);
 
     const fetchEvents = async () => {
-        const response = await fetch("/api/proxy");
+        const response = await fetch("/api/events");
         if (!response.ok) {
             return;
         }

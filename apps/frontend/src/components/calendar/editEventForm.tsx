@@ -19,9 +19,18 @@ const EditEventForm: React.FC<CalendarModalProps> = ({
     const [endTime, setEndTime] = useState("09:30");
 
     async function updateEvent(event: Event) {
-        const response = await fetch(`/api/proxy/${event.id}`, {
+        const response = await fetch(`/api/events/${event.id}`, {
             method: "PUT",
             body: JSON.stringify(event),
+        });
+        if (!response.ok) {
+            return;
+        }
+    }
+
+    async function deleteEvent(event: Event) {
+        const response = await fetch(`/api/events/${event.id}`, {
+            method: "DELETE",
         });
         if (!response.ok) {
             return;
@@ -50,7 +59,16 @@ const EditEventForm: React.FC<CalendarModalProps> = ({
         updateEvent(updatedEvent)
             .then(() => setModalType(null))
             .then(refreshEvents)
-            .catch((error) => console.error("Error creating event", error));
+            .catch((error) => console.error("Error editing event", error));
+    };
+
+    const handleDelete = () => {
+        const deletedEvent = selectedEvent!;
+        console.log("Deleted: ", deletedEvent);
+        deleteEvent(deletedEvent)
+            .then(() => setModalType(null))
+            .then(refreshEvents)
+            .catch((error) => console.error("Error deleting event", error));
     };
 
     return (
@@ -100,6 +118,12 @@ const EditEventForm: React.FC<CalendarModalProps> = ({
                     onClick={handleSubmit}
                 >
                     Save Event
+                </button>
+                <button
+                    className="mt-4 w-full rounded bg-blue-500 px-4 py-2 text-white"
+                    onClick={handleDelete}
+                >
+                    Delete Event
                 </button>
             </div>
             <button

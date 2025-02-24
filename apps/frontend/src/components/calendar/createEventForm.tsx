@@ -14,12 +14,12 @@ const CreateEventForm: React.FC<CalendarModalProps> = ({
     setModalType,
     refreshEvents,
 }) => {
-    const [activity, setActivity] = useState(ActivityType.Moderate);
+    const [activity, setActivity] = useState(ActivityType.Walking);
     const [startTime, setStartTime] = useState("09:00");
     const [endTime, setEndTime] = useState("09:30");
 
     async function createEvent(event: CreateEvent) {
-        const response = await fetch("/api/proxy", {
+        const response = await fetch("/api/events", {
             method: "POST",
             body: JSON.stringify(event),
         });
