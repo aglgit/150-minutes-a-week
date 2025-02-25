@@ -66,10 +66,11 @@ const CreateEventForm: React.FC<CalendarModalProps> = ({
                     }
                     className="w-full rounded border p-2 text-black"
                 >
-                    <option value="Walking">Walking</option>
-                    <option value="Running">Running</option>
-                    <option value="Biking">Cycling</option>
-                    <option value="Swimming">Swimming</option>
+                    {Object.values(ActivityType).map((activity) => (
+                        <option key={activity} value={activity}>
+                            {activity}
+                        </option>
+                    ))}
                 </select>
                 <div className="mt-2">
                     <label className="block">Start Time:</label>
