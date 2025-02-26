@@ -1,20 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useUser } from "@/lib/user/userContext";
 
 const UserPage: React.FC = () => {
-    const [user, setUser] = useState<{ name: string; email: string } | null>(
-        null
-    );
-
-    useEffect(() => {
-        fetch("http://localhost:8080/users", { credentials: "include" })
-            .then((res) => res.json())
-            .then((data) => {
-                return setUser(data);
-            })
-            .catch(() => setUser(null));
-    }, []);
+    const user = useUser();
 
     return (
         <div>

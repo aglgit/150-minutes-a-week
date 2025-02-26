@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import BaseLayout from "@/components/BaseLayout";
+import { UserProvider } from "@/components/user/userProvider";
 
 export const metadata: Metadata = {
     title: "150 minutes a week",
@@ -22,9 +23,11 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                 />
             </head>
             <body>
-                <BaseLayout>
-                    <main>{children}</main>
-                </BaseLayout>
+                <UserProvider>
+                    <BaseLayout>
+                        <main>{children}</main>
+                    </BaseLayout>
+                </UserProvider>
             </body>
         </html>
     );

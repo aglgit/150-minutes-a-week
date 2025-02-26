@@ -1,4 +1,5 @@
 import { ActivityType, CreateEvent } from "@/lib/schema/schema";
+import { useUser } from "@/lib/user/userContext";
 import React, { useState } from "react";
 
 type CalendarModalProps = {
@@ -17,6 +18,8 @@ const CreateEventForm: React.FC<CalendarModalProps> = ({
     const [activity, setActivity] = useState(ActivityType.Walking);
     const [startTime, setStartTime] = useState("09:00");
     const [endTime, setEndTime] = useState("09:30");
+
+    const user = useUser();
 
     async function createEvent(event: CreateEvent) {
         const response = await fetch("/api/events", {
@@ -37,7 +40,7 @@ const CreateEventForm: React.FC<CalendarModalProps> = ({
 
     const handleSubmit = () => {
         const newEvent: CreateEvent = {
-            userId: "fjellskvis@gmail.com",
+            userId: user?.email || "",
             activity,
             startTime: convertTimeToDateTime(selectedDay!, startTime),
             endTime: convertTimeToDateTime(selectedDay!, endTime),
