@@ -1,5 +1,6 @@
 "use client";
 
+import { UserInfo } from "@/lib/schema/schema";
 import { UserContext } from "@/lib/user/userContext";
 import { useEffect, useState } from "react";
 
@@ -8,9 +9,7 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-    const [user, setUser] = useState<{ name: string; email: string } | null>(
-        null
-    );
+    const [user, setUser] = useState<UserInfo | null>(null);
 
     useEffect(() => {
         fetch("http://localhost:8080/users", { credentials: "include" })

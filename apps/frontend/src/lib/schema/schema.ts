@@ -28,3 +28,8 @@ export type CreateEvent = {
 export type User = {
     id: string;
 };
+
+export type UserInfo = {
+    name: string;
+    email: string;
+};
