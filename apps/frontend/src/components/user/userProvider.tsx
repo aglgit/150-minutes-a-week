@@ -12,7 +12,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const [user, setUser] = useState<UserInfo | null>(null);
 
     useEffect(() => {
-        fetch("http://localhost:8080/users", { credentials: "include" })
+        fetch("api/users", { credentials: "include" })
             .then((res) => res.json())
             .then((data) => {
                 return setUser(data);
