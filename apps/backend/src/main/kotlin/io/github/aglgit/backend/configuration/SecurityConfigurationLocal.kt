@@ -3,7 +3,6 @@ package io.github.aglgit.backend.configuration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
-import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -15,18 +14,24 @@ import org.springframework.web.cors.CorsUtils
 @EnableWebSecurity
 @EnableMethodSecurity
 @Profile("local")
-class SecurityConfigurationLocal {
+class SecurityConfigurationLocal(private val successHandler: CustomAuthenticationSuccessHandler) {
 
     @Bean
     @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .csrf { csrf -> csrf.disable() }
+            .formLogin { formLogin -> formLogin.disable() }
+            .httpBasic { basic -> basic.disable() }
             .authorizeHttpRequests { auth ->
                 auth
                     .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                    .requestMatchers("/", "/login", "/error").permitAll()
                     .anyRequest().authenticated()
-            }.httpBasic(Customizer.withDefaults())
+            }
+            .oauth2Login { oauthl -> oauthl.successHandler(successHandler) }
+            .logout { lo -> lo.logoutUrl("/logout").logoutSuccessUrl("http://localhost:3000/user") }
+
         return http.build()
     }
 

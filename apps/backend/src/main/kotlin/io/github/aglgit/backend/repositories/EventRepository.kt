@@ -16,7 +16,7 @@ class EventRepository(private val jdbcTemplate: JdbcTemplate) {
     private val rowMapper = RowMapper { rs, _ ->
         Event(
             id = rs.getLong("id"),
-            userId = rs.getLong("user_id"),
+            userId = rs.getString("user_id"),
             activity = Activity.valueOf(rs.getString("activity")),
             startTime = rs.getObject("start_time", OffsetDateTime::class.java).toZonedDateTime(),
             endTime = rs.getObject("end_time", OffsetDateTime::class.java).toZonedDateTime(),
@@ -36,7 +36,7 @@ class EventRepository(private val jdbcTemplate: JdbcTemplate) {
         )
     }
 
-    fun getEventsByUser(userId: Long): List<Event> {
+    fun getEventsByUser(userId: String): List<Event> {
         return jdbcTemplate.query(
             """
             SELECT * FROM events 
@@ -56,7 +56,7 @@ class EventRepository(private val jdbcTemplate: JdbcTemplate) {
 
         jdbcTemplate.update({ connection ->
             val ps: PreparedStatement = connection.prepareStatement(sql, arrayOf("id"))
-            ps.setLong(1, event.userId)
+            ps.setString(1, event.userId)
             ps.setString(2, event.activity.toString())
             ps.setTimestamp(3, Timestamp.from(event.startTime.toInstant()))
             ps.setTimestamp(4, Timestamp.from(event.endTime.toInstant()))

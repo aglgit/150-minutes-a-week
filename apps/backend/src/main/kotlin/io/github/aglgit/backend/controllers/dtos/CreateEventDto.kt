@@ -5,7 +5,7 @@ import io.github.aglgit.backend.services.domain.CreateEvent
 import java.time.ZonedDateTime
 
 data class CreateEventDto(
-    val userId: Long,
+    val userId: String,
     val activity: Activity,
     val startTime: ZonedDateTime,
     val endTime: ZonedDateTime,

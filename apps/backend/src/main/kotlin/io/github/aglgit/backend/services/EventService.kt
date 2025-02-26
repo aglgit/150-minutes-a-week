@@ -16,7 +16,7 @@ class EventService(private val eventRepository: EventRepository) {
         return eventRepository.getEventById(id)
     }
 
-    fun getEventsByUser(userId: Long): List<Event> {
+    fun getEventsByUser(userId: String): List<Event> {
         return eventRepository.getEventsByUser(userId)
     }
 

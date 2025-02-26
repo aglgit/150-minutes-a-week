@@ -6,7 +6,7 @@ import java.time.ZonedDateTime
 
 data class EventDto(
     val id: Long,
-    val userId: Long,
+    val userId: String,
     val activity: Activity,
     val startTime: ZonedDateTime,
     val endTime: ZonedDateTime,

@@ -13,7 +13,7 @@ class MockEventRepository {
         val events = arrayListOf(
             Event(
                 1,
-                1,
+                "alef@example.com",
                 Activity.Walking,
                 startTime = ZonedDateTime.of(
                     now.year,
@@ -38,7 +38,7 @@ class MockEventRepository {
             ),
             Event(
                 2,
-                2,
+                "blef@example.com",
                 Activity.Walking,
                 startTime = ZonedDateTime.of(
                     now.year,
@@ -65,7 +65,7 @@ class MockEventRepository {
         return events
     }
 
-    fun getEventsByUser(userId: Long): List<Event> {
+    fun getEventsByUser(userId: String): List<Event> {
         return getAllEvents().filter { it.userId == userId }
     }
 }
