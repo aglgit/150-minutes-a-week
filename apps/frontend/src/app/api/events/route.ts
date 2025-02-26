@@ -1,29 +1,22 @@
 import { NextResponse } from "next/server";
 import { mockEvents } from "../../../lib/mocks/mockEvents";
 import { Event } from "@/lib/schema/schema";
+import { cookies } from "next/headers";
 
 const backendUrl = process.env.BACKEND_URL;
-const username = process.env.BACKEND_USERNAME;
-const password = process.env.BACKEND_PASSWORD;
-const authHeader = `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`;
 
 export async function GET(): Promise<NextResponse> {
+    const cookieStore = await cookies();
+
     if (process.env.NODE_ENV === "production") {
         return NextResponse.json(mockEvents, { status: 200 });
-    }
-
-    if (!backendUrl || !username || !password) {
-        return NextResponse.json(
-            { error: "Missing required credentials" },
-            { status: 500 }
-        );
     }
 
     try {
         const response = await fetch(`${backendUrl}/events`, {
             method: "GET",
             headers: {
-                Authorization: authHeader,
+                Cookie: cookieStore.toString(),
                 "Content-Type": "application/json",
             },
         });
@@ -57,23 +50,17 @@ export async function GET(): Promise<NextResponse> {
 export async function POST(request: Request): Promise<NextResponse> {
     const body = await request.json();
     const bodyString = JSON.stringify(body);
+    const cookieStore = await cookies();
 
     if (process.env.NODE_ENV === "production") {
         return NextResponse.json(bodyString, { status: 200 });
-    }
-
-    if (!backendUrl || !username || !password) {
-        return NextResponse.json(
-            { error: "Missing required credentials" },
-            { status: 500 }
-        );
     }
 
     try {
         const response = await fetch(`${backendUrl}/events`, {
             method: "POST",
             headers: {
-                Authorization: authHeader,
+                Cookie: cookieStore.toString(),
                 "Content-Type": "application/json",
             },
             body: bodyString,

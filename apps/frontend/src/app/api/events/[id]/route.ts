@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
 import { Event } from "@/lib/schema/schema";
+import { cookies } from "next/headers";
 
 const backendUrl = process.env.BACKEND_URL;
-const username = process.env.BACKEND_USERNAME;
-const password = process.env.BACKEND_PASSWORD;
-const authHeader = `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`;
 
 export async function PUT(
     request: Request,
@@ -13,23 +11,17 @@ export async function PUT(
     const { id } = await context.params;
     const body = await request.json();
     const bodyString = JSON.stringify(body);
+    const cookieStore = await cookies();
 
     if (process.env.NODE_ENV === "production") {
         return NextResponse.json(bodyString, { status: 200 });
-    }
-
-    if (!backendUrl || !username || !password) {
-        return NextResponse.json(
-            { error: "Missing required credentials" },
-            { status: 500 }
-        );
     }
 
     try {
         const response = await fetch(`${backendUrl}/events/${id}`, {
             method: "PUT",
             headers: {
-                Authorization: authHeader,
+                Cookie: cookieStore.toString(),
                 "Content-Type": "application/json",
             },
             body: bodyString,
@@ -64,23 +56,17 @@ export async function DELETE(
     context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
     const { id } = await context.params;
+    const cookieStore = await cookies();
 
     if (process.env.NODE_ENV === "production") {
         return NextResponse.json({ status: 200 });
-    }
-
-    if (!backendUrl || !username || !password) {
-        return NextResponse.json(
-            { error: "Missing required credentials" },
-            { status: 500 }
-        );
     }
 
     try {
         const response = await fetch(`${backendUrl}/events/${id}`, {
             method: "DELETE",
             headers: {
-                Authorization: authHeader,
+                Cookie: cookieStore.toString(),
                 "Content-Type": "application/json",
             },
         });

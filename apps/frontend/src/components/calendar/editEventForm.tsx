@@ -25,6 +25,7 @@ const EditEventForm: React.FC<CalendarModalProps> = ({
 
     async function updateEvent(event: Event) {
         const response = await fetch(`/api/events/${event.id}`, {
+            credentials: "include",
             method: "PUT",
             body: JSON.stringify(event),
         });
@@ -35,6 +36,7 @@ const EditEventForm: React.FC<CalendarModalProps> = ({
 
     async function deleteEvent(event: Event) {
         const response = await fetch(`/api/events/${event.id}`, {
+            credentials: "include",
             method: "DELETE",
         });
         if (!response.ok) {

@@ -5,6 +5,7 @@ const Footer: React.FC = () => {
         <header className="mx-auto flex items-center justify-center gap-1 p-2">
             <Link href="/">Home</Link>
             <Link href="/about">About</Link>
+            <Link href="/user">User</Link>
         </header>
     );
 };

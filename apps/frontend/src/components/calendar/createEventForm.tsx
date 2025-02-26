@@ -37,7 +37,7 @@ const CreateEventForm: React.FC<CalendarModalProps> = ({
 
     const handleSubmit = () => {
         const newEvent: CreateEvent = {
-            userId: "1",
+            userId: "fjellskvis@gmail.com",
             activity,
             startTime: convertTimeToDateTime(selectedDay!, startTime),
             endTime: convertTimeToDateTime(selectedDay!, endTime),
