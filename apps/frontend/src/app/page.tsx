@@ -14,8 +14,9 @@ const Home: React.FC = () => {
     }, [refresh]);
 
     const fetchEvents = async () => {
-        const response = await fetch("http://localhost:8080/events", {
+        const response = await fetch(`/api/events`, {
             credentials: "include",
+            method: "GET",
         });
         if (!response.ok) {
             return;
