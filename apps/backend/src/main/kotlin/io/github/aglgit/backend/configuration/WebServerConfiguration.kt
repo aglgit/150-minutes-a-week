@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 class WebServerConfiguration {
 
     @Value("\${cors.origin.patterns:default}")
-    private val corsOriginPatterns: String = ""
+    private lateinit var corsOriginPatterns: String
 
     @Bean
     fun addCorsConfig(): WebMvcConfigurer {
